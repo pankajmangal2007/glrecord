@@ -1,0 +1,54 @@
+form: COPYBOOK
+id: 'GL-RECORD'
+values: 
+- name: '*'
+  maxLength: 180
+  values: 
+  - name: 'HEADER-RECORD'
+    maxLength: 180
+    values: 
+    - { name: 'W-BH-TXN-CD', type: String, length: 2 }
+    - { name: 'W-BH-COMPANY', type: String, length: 2 }
+    - { name: 'FILLER1', usage: U, type: String, length: 22 }
+    - { name: 'W-BH-POST-DATE', type: Integer, length: 6, format: { justify: ZEROES, sign: UNSIGNED } }
+    - { name: 'FILLER2', usage: U, type: String, length: 5 }
+    - { name: 'W-BH-REVR-DATE', type: Integer, length: 6, format: { justify: ZEROES, sign: UNSIGNED } }
+    - { name: 'FILLER3', usage: U, type: String, length: 37 }
+    - { name: 'W-BH-OPRID', type: String, length: 8 }
+    - { name: 'FILLER4', usage: U, type: String, length: 92 }
+  - name: 'DETAIL-RECORD'
+    maxLength: 180
+    values: 
+    - { name: 'W-PT-TXN-CD', type: String, length: 2 }
+    - { name: 'FILLER5', usage: U, type: String, length: 5 }
+    - { name: 'W-PT-DRCR', type: String, length: 2 }
+    - { name: 'W-PT-CO-CD', type: String, length: 2 }
+    - { name: 'FILLER6', usage: U, type: String, length: 2 }
+    - { name: 'W-PT-ACCT-NBR', type: String, length: 6 }
+    - { name: 'FILLER7', usage: U, type: String, length: 1 }
+    - { name: 'W-PT-MTHD-CD', type: String, length: 1 }
+    - { name: 'W-PT-RM-CD', type: String, length: 2 }
+    - { name: 'FILLER8', usage: U, type: String, length: 2 }
+    - { name: 'W-PT-LNCV-CD', type: String, length: 4 }
+    - { name: 'W-PT-IC-CD', type: String, length: 2 }
+    - { name: 'W-PT-COST-CTR', type: String, length: 5 }
+    - { name: 'W-PT-ST-CD', type: String, length: 2 }
+    - { name: 'W-PT-SBST-CD', type: String, length: 2 }
+    - { name: 'FILLER9', usage: U, type: String, length: 3 }
+    - name: 'W-PT-SRCE-TR'
+      maxLength: 8
+      values: 
+      - { name: 'W-PT-SRCE-CD', type: String, length: 3 }
+      - { name: 'FILLER10', usage: U, type: String, length: 5 }
+    - { name: 'FILLER11', usage: U, type: String, length: 2 }
+    - name: 'W-PT-POST-DATE'
+      maxLength: 6
+      values: 
+      - { name: 'W-PT-POST-DATE-MM', type: Integer, length: 2, format: { justify: ZEROES, sign: UNSIGNED } }
+      - { name: 'W-PT-POST-DATE-DD', type: Integer, length: 2, format: { justify: ZEROES, sign: UNSIGNED } }
+      - { name: 'W-PT-POST-DATE-YY', type: Integer, length: 2, format: { justify: ZEROES, sign: UNSIGNED } }
+    - { name: 'W-PT-DRCR-AMOUNT', type: Zoned, length: 13, format: { implicit: 2, sign: 'ALWAYS_RIGHT' } }
+    - { name: 'FILLER12', usage: U, type: String, length: 1 }
+    - { name: 'W-PT-DESC-1', type: String, length: 30 }
+    - { name: 'W-PT-DESC-2', type: String, length: 12 }
+    - { name: 'FILLER13', usage: U, type: String, length: 65 }

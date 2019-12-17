@@ -1,0 +1,19 @@
+form: COPYBOOK
+id: 'HOSPITALSCOPYBOOK'
+values: 
+- name: 'HOSPITALS'
+  values: 
+  - name: 'BASIC-INFO'
+    values: 
+    - { name: 'NAME', type: String, length: 4 }
+    - { name: 'ADDRESS', type: String, length: 4 }
+    - { name: 'PHONE-NUMBER', type: Integer, length: 10, format: { justify: ZEROES, sign: UNSIGNED } }
+    - { name: 'ADMIN', type: String, length: 4 }
+- name: 'WARDS'
+  values: 
+  - name: 'BASIC-INFO'
+    values: 
+    - { name: 'NAME', type: String, length: 4 }
+    - { name: 'ADDRESS', type: String, length: 4 }
+    - { name: 'NUMBER', type: Integer, length: 10, format: { justify: ZEROES, sign: UNSIGNED } }
+    - { name: 'ADMIN', type: String, length: 4 }

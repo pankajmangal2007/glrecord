@@ -1,0 +1,41 @@
+       01 GL-RECORD.
+        02 HEADER-RECORD.
+          05 W-BH-TXN-CD                 PIC X(02).
+          05 W-BH-COMPANY                PIC X(02).
+          05 FILLER                      PIC X(22).
+          05 W-BH-POST-DATE              PIC 9(06).
+          05  FILLER                     PIC  X(05).
+          05  W-BH-REVR-DATE             PIC 9(06).
+          05  FILLER                      PIC  X(37).
+          05  W-BH-OPRID                  PIC  X(08).
+          05  FILLER                      PIC  X(92).
+        02 DETAIL-RECORD REDEFINES HEADER-RECORD.
+          05  W-PT-TXN-CD                 PIC  X(02).
+          05  FILLER                      PIC  X(05).
+          05  W-PT-DRCR                   PIC  X(02).
+          05  W-PT-CO-CD                  PIC  X(02).
+          05  FILLER                      PIC  X(02).
+          05  W-PT-ACCT-NBR               PIC  X(06).
+          05  FILLER                      PIC  X(01).
+          05  W-PT-MTHD-CD                PIC  X(01).
+          05  W-PT-RM-CD                  PIC  X(02).
+          05  FILLER                      PIC  X(02).
+          05  W-PT-LNCV-CD                PIC  X(04).
+          05  W-PT-IC-CD                  PIC  X(02).
+          05  W-PT-COST-CTR               PIC  X(05).
+          05  W-PT-ST-CD                  PIC  X(02).
+          05  W-PT-SBST-CD                PIC  X(02).
+          05  FILLER                      PIC  X(03).
+          05  W-PT-SRCE-TR.
+              10  W-PT-SRCE-CD            PIC  X(03).
+              10  FILLER                  PIC  X(05).
+          05  FILLER                      PIC  X(02).
+          05  W-PT-POST-DATE.
+              10  W-PT-POST-DATE-MM       PIC  9(02).
+              10  W-PT-POST-DATE-DD       PIC  9(02).
+              10  W-PT-POST-DATE-YY       PIC  9(02).
+          05  W-PT-DRCR-AMOUNT            PIC S9(11)V99.
+          05  FILLER                      PIC  X(01).
+          05  W-PT-DESC-1                 PIC  X(30).
+          05  W-PT-DESC-2                 PIC  X(12).
+          05  FILLER                      PIC  X(65).

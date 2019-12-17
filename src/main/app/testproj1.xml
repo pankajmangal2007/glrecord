@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <flow name="testproj1Flow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/test" doc:name="HTTP"/>
+        <dw:transform-message doc:name="Transform Message" metadata:id="0e4eb55b-9730-4b43-9167-1e0d824936d3">
+            <dw:input-payload mimeType="text/plain">
+                <dw:reader-property name="schemaPath" value="gl-records.ffd"/>
+                <dw:reader-property name="structureIdent" value="MultiSegment"/>
+            </dw:input-payload>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+payload.Data.GL-RECORD map ( payload01 , indexOfPayload01 ) -> {
+ "JournalFileData": {
+    "AccountingJournalData": {
+      "CompanyReferenceID": {
+      	"wd:type": "Company_Reference_ID",
+      	"content":payload01.HEADER.W-BH-COMPANY default ""
+      },
+      "AccountingDate": payload01.HEADER.W-BH-POST-DATE,
+      "JournalEntryMemo": "",
+      "JournalEntryLineReplacementData": payload01.DETAIL map (payload02, indexOfPayload02) ->{
+      	"LineOrder": payload02.W-PT-TXN-CD,
+        "DebitCreditCode": payload02.W-PT-DRCR,
+        
+        "LineCompanyReferenceID": {
+            "wd:type": "Company_Reference_ID",
+            "content": payload02.W-PT-CO-CD
+          },
+          "LedgerAccountReferenceID": {
+            "wd:type": "Ledger_Account_ID",
+            "content": payload02.W-PT-ACCT-NBR
+          },
+          "Memo": "",
+          "JournalLineExternalReferenceID": "",
+          "WorktagsReferenceID": [
+            {
+              "wd:type": "PaymentMethodCode",
+              "content": payload02.W-PT-MTHD-CD
+            },
+            {
+              "wd:type": "RateManualCode",
+              "content": payload02.W-PT-RM-CD
+            },
+            {
+              "wd:type": "LineCoverageCode",
+              "content": payload02.W-PT-LNCV-CD
+            },
+            {
+              "wd:type": "Cost_Center_Reference_ID",
+              "content": payload02.W-PT-COST-CTR
+            },
+            {
+              "wd:type": "StateCode",
+              "content": payload02.W-PT-ST-CD
+            }
+          ],
+          "JournalSource": payload02.W-PT-DESC-1,
+          "DebitCreditAmount": payload02.W-PT-DRCR-AMOUNT
+      	
+      }
+      
+     }
+      
+}
+
+
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+    </flow>
+</mule>
